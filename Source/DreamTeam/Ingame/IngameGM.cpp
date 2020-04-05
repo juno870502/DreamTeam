@@ -5,5 +5,7 @@
 
 void AIngameGM::BeginPlay()
 {
+	Super::BeginPlay();
+
 	ClearItemNum = 0;
 }

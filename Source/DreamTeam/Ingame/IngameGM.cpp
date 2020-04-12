@@ -2,10 +2,51 @@
 
 
 #include "IngameGM.h"
+#include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Engine/World.h"
+
+//////////////////////////////////////
+#include "Dreamteam/ProjectGameInstance.h"
+#include "DreamTeam/Ingame/IngameCharacter.h"
+//////////////////////////////////////
+
+AIngameGM::AIngameGM()
+{
+	
+
+	//if (GI->SelectCharacter == 2)
+	//{
+
+	//}
+}
+
+
+void AIngameGM::InitGame(const FString & MapName, const FString & Options, FString & ErrorMessage)
+{
+	Super::InitGame(MapName, Options, ErrorMessage);
+
+	UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+
+	if (GI->SelectCharacter == 1)
+	{
+		static ConstructorHelpers::FClassFinder<AIngameCharacter> Pawn_Class(TEXT("Blueprint'/Game/DTChar/BP/BP_DTCharPA.BP_DTCharPA_C'"));
+		//static ConstructorHelpers::FObjectFinder<AIngameCharacter> Pawn_Class(TEXT("Blueprint'/Game/DTChar/BP/BP_DTCharPA.BP_DTCharPA_C'"));
+		if (Pawn_Class.Succeeded())
+		{
+			DefaultPawnClass = Pawn_Class.Class;
+		}
+	}
+}
 
 void AIngameGM::BeginPlay()
 {
 	Super::BeginPlay();
-
+	//UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	
 	ClearItemNum = 0;
+
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Info")
+		UAnimMontage* DeadAnimation;*/
+
 }

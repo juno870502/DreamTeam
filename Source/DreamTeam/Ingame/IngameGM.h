@@ -14,7 +14,9 @@ class DREAMTEAM_API AIngameGM : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
+	AIngameGM();
 
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage);
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)

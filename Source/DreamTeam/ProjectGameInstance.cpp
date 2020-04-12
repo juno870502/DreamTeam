@@ -2,3 +2,8 @@
 
 
 #include "ProjectGameInstance.h"
+
+UProjectGameInstance::UProjectGameInstance()
+{
+	SelectCharacter = 0;
+}

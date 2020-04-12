@@ -19,5 +19,5 @@ void UIntroWidget::NativeConstruct()
 
 void UIntroWidget::StartGame()
 {
-	UGameplayStatics::OpenLevel(GetWorld(), TEXT("RoomTest"), true);
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("SelectLevel"), true);
 }

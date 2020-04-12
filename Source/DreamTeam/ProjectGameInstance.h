@@ -13,4 +13,10 @@ UCLASS()
 class DREAMTEAM_API UProjectGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
+public:
+
+	UProjectGameInstance();
+
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+		int SelectCharacter;
 };

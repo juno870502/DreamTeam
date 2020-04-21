@@ -50,7 +50,7 @@ void USelectWidget::GameSTart()
 	UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (GI->SelectCharacter > 0)
 	{
-		UGameplayStatics::OpenLevel(GetWorld(), TEXT("RoomTest"), true);
+		UGameplayStatics::OpenLevel(GetWorld(), TEXT("RoomTestLight"), true);
 	}
 	
 }

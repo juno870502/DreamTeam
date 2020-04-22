@@ -17,6 +17,6 @@ public:
 
 	UProjectGameInstance();
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		int SelectCharacter;
 };

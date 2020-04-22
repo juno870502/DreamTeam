@@ -152,3 +152,5 @@ Binaries/Win64/UE4Editor-DreamTeam.pdb
 Binaries/Win64/UE4Editor-DreamTeam.dll
 Binaries/Win64/DreamTeamEditor.target
 DreamTeam.VC.VC.opendb
+*.log
+*.ipch

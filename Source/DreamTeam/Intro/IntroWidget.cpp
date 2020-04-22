@@ -19,5 +19,5 @@ void UIntroWidget::NativeConstruct()
 
 void UIntroWidget::StartGame()
 {
-	UGameplayStatics::OpenLevel(GetWorld(), TEXT("SelectLevel"), true);
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("Title"), true);
 }

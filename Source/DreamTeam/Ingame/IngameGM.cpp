@@ -26,7 +26,7 @@ void AIngameGM::InitGame(const FString & MapName, const FString & Options, FStri
 {
 	Super::InitGame(MapName, Options, ErrorMessage);
 
-	UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	//UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 
 	//if (GI->SelectCharacter == 1)
 	//{
@@ -53,7 +53,7 @@ void AIngameGM::BeginPlay()
 	Super::BeginPlay();
 	//UProjectGameInstance* GI = Cast<UProjectGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	
-	ClearItemNum = 0;
+	//ClearItemNum = 0;
 
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Info")
 		UAnimMontage* DeadAnimation;*/

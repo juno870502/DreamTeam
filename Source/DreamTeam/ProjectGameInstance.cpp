@@ -5,5 +5,4 @@
 
 UProjectGameInstance::UProjectGameInstance()
 {
-	SelectCharacter = 0;
 }

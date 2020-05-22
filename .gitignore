@@ -154,3 +154,4 @@ Binaries/Win64/DreamTeamEditor.target
 DreamTeam.VC.VC.opendb
 *.log
 *.ipch
+.vs/DreamTeam/v16/Browse.VC.opendb

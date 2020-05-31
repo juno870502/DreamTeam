@@ -155,3 +155,5 @@ DreamTeam.VC.VC.opendb
 *.log
 *.ipch
 .vs/DreamTeam/v16/Browse.VC.opendb
+Binaries/Win64/UE4Editor-DreamTeam.pdb
+Binaries/Win64/UE4Editor-DreamTeam.pdb

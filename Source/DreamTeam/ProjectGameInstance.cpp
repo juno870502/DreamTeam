@@ -5,6 +5,8 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemSteam.h"
 #include "OnlineStats.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "Interfaces/OnlineLeaderboardInterface.h"
 
@@ -15,24 +17,21 @@ UProjectGameInstance::UProjectGameInstance()
 void UProjectGameInstance::ReadLeaderboard()
 {
 	IOnlineSubsystem* SubSystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
-	IOnlineLeaderboardsPtr LBInterface;
-	IOnlineLeaderboards* LB;
-	LBInterface = SubSystem->GetLeaderboardsInterface();
 	
-	if (LBInterface.IsValid())
+	if (SubSystem)
 	{
-		LB = LBInterface.Get();
-		TArray< TSharedRef<const FUniqueNetId> > Players;
-		
-		
-		//FOnlineLeaderboardReadRef ReadObject;
-		FOnlineSubsystemSteamPtr OSS;
+		IOnlineIdentityPtr Identity = SubSystem->GetIdentityInterface();
+		if (Identity.IsValid())
+		{
+			TSharedPtr<const FUniqueNetId> UserIdPtr = Identity->GetUniquePlayerId(0);
+			TSharedRef<const FUniqueNetId> UserIdRef = UserIdPtr.ToSharedRef();
 
-		FName SessionName = TEXT("TimeRank");
-		TSharedPtr<const FUniqueNetId> Player = IOnlineSubsystem::Get()->GetIdentityInterface()->GetUniquePlayerId(0);
-		FOnlineLeaderboardWrite OLW;
-		
-		OSS->GetLeaderboardsInterface()->WriteLeaderboards(SessionName, *Player.Get(), OLW);
+			IOnlineLeaderboardsPtr Leaderboards = SubSystem->GetLeaderboardsInterface();
+			if (Leaderboards.IsValid())
+			{
+				//Leaderboards->ReadLeaderboards(UserIdRef.Get(0),)
+			}
+		}
 	}
 	
 	
@@ -45,9 +44,13 @@ void UProjectGameInstance::WriteLeaderboard()
 	IOnlineLeaderboards* LB;
 	LBInterface = SubSystem->GetLeaderboardsInterface();
 
+	
+	
+	
 	if (LBInterface.IsValid())
 	{
 		LB = LBInterface.Get();
+		//LB->WriteLeaderboards(TEXT("TimeRecord"), )
 	}
 }
 

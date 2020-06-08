@@ -2,56 +2,24 @@
 
 
 #include "ProjectGameInstance.h"
-#include "OnlineSubsystem.h"
-#include "OnlineSubsystemSteam.h"
-#include "OnlineStats.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
-#include "Interfaces/OnlineIdentityInterface.h"
-#include "Interfaces/OnlineLeaderboardInterface.h"
+#include "Engine/Engine.h"
+#include "SDTLeaderboard.h"
 
 UProjectGameInstance::UProjectGameInstance()
 {
+	
 }
 
 void UProjectGameInstance::ReadLeaderboard()
 {
-	IOnlineSubsystem* SubSystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
-	
-	if (SubSystem)
-	{
-		IOnlineIdentityPtr Identity = SubSystem->GetIdentityInterface();
-		if (Identity.IsValid())
-		{
-			TSharedPtr<const FUniqueNetId> UserIdPtr = Identity->GetUniquePlayerId(0);
-			TSharedRef<const FUniqueNetId> UserIdRef = UserIdPtr.ToSharedRef();
-
-			IOnlineLeaderboardsPtr Leaderboards = SubSystem->GetLeaderboardsInterface();
-			if (Leaderboards.IsValid())
-			{
-				//Leaderboards->ReadLeaderboards(UserIdRef.Get(0),)
-			}
-		}
-	}
-	
-	
+	DTLB.ReadLeaderboard();
 }
 
 void UProjectGameInstance::WriteLeaderboard()
 {
-	IOnlineSubsystem* SubSystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
-	IOnlineLeaderboardsPtr LBInterface;
-	IOnlineLeaderboards* LB;
-	LBInterface = SubSystem->GetLeaderboardsInterface();
-
-	
-	
-	
-	if (LBInterface.IsValid())
-	{
-		LB = LBInterface.Get();
-		//LB->WriteLeaderboards(TEXT("TimeRecord"), )
-	}
+	DTLB.WriteLeaderboard();
 }
 
 void UProjectGameInstance::LoginLeaderboard()
@@ -84,29 +52,4 @@ void UProjectGameInstance::OnLoginCompleteReadStats(int32 LocalUserNum, bool bWa
 
 void UProjectGameInstance::ReadStats()
 {
-	//StatRows.Reset();
-
-	IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
-	if (OnlineSub)
-	{
-		IOnlineLeaderboardsPtr Leaderboards = OnlineSub->GetLeaderboardsInterface();
-		if (Leaderboards.IsValid())
-		{
-			// We are about to read the stats. The delegate will set this to false once the read is complete.
-			//LeaderboardReadCompleteDelegateHandle = Leaderboards->AddOnLeaderboardReadCompleteDelegate_Handle(LeaderboardReadCompleteDelegate);
-			bReadingStats = true;
-
-			// There's no reason to request leaderboard requests while one is in progress, so only do it if there isn't one active.
-			//if (!IsLeaderboardReadInProgress())
-			//{
-			//	ReadObject = MakeShareable(new FShooterAllTimeMatchResultsRead());
-			//	FOnlineLeaderboardReadRef ReadObjectRef = ReadObject.ToSharedRef();
-			//	bReadingStats = Leaderboards->ReadLeaderboardsForFriends(0, ReadObjectRef);
-			//}
-		}
-		else
-		{
-			// TODO: message the user?
-		}
-	}
 }

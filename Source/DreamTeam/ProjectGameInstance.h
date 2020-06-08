@@ -4,8 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "OnlineSubsystem.h"
-#include "OnlineStats.h"
+#include "SDTLeaderboard.h"
 #include "ProjectGameInstance.generated.h"
 
 /**
@@ -19,13 +18,15 @@ public:
 
 	UProjectGameInstance();
 
+	SDTLeaderboard DTLB;
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int SelectCharacter = 0;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void ReadLeaderboard();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void WriteLeaderboard();
 
 	void LoginLeaderboard();
@@ -43,9 +44,6 @@ public:
 
 	/** action bindings array */
 	//TArray<TSharedPtr<FLeaderboardRow>> StatRows;
-
-	/** Leaderboard read object */
-	FOnlineLeaderboardReadPtr ReadObject;
 
 	/** Indicates that a stats read operation has been initiated */
 	bool bReadingStats;

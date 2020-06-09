@@ -47,7 +47,6 @@ public:
 	FOnlineLeaderboardReadPtr ReadObject;
 
 	/** Delegate called when a leaderboard has been successfully read */
-	UFUNCTION()
 	FOnLeaderboardReadCompleteDelegate LeaderboardReadCompleteDelegate;
 	/** Handle to the registered LeaderboardReadComplete delegate */
 	FDelegateHandle LeaderboardReadCompleteDelegateHandle;

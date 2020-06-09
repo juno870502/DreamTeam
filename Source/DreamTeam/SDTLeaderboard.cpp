@@ -46,7 +46,6 @@ void SDTLeaderboard::Construct(const FArguments& InArgs)
 		// Populate the widget
 	];
 	*/
-	LeaderboardReadCompleteDelegate = FOnLeaderboardReadCompleteDelegate::CreateRaw(this, &SDTLeaderboard::OnLeaderboardReadComplete);
 }
 
 void SDTLeaderboard::OnLeaderboardReadComplete(bool bWasSuccessful)
@@ -64,8 +63,6 @@ void SDTLeaderboard::OnLeaderboardReadComplete(bool bWasSuccessful)
 				TSharedPtr<FLeaderboardRow> NewLeaderboardRow = MakeShareable(new FLeaderboardRow(ReadObject->Rows[Idx]));
 
 				StatRows.Add(NewLeaderboardRow);
-
-				GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Emerald, FString::Printf(TEXT("Score : %s"), &(StatRows[Idx]->Time)));
 			}
 
 			//RowListWidget->RequestListRefresh();
@@ -77,8 +74,6 @@ void SDTLeaderboard::OnLeaderboardReadComplete(bool bWasSuccessful)
 
 void SDTLeaderboard::ReadLeaderboard()
 {
-	ReadObject = MakeShareable(new FDreamTeamLeaderboardRead());
-
 	IOnlineSubsystem* SubSystem = IOnlineSubsystem::Get(STEAM_SUBSYSTEM);
 
 	if (SubSystem)
@@ -93,8 +88,14 @@ void SDTLeaderboard::ReadLeaderboard()
 
 			if (Leaderboards.IsValid())
 			{
+				// We are about to read the stats. The delegate will set this to false once the read is complete.
+				LeaderboardReadCompleteDelegate = FOnLeaderboardReadCompleteDelegate::CreateRaw(this, &SDTLeaderboard::OnLeaderboardReadComplete);
+				LeaderboardReadCompleteDelegateHandle = Leaderboards->AddOnLeaderboardReadCompleteDelegate_Handle(LeaderboardReadCompleteDelegate);
+				bReadingStats = true;
+
+				ReadObject = MakeShareable(new FDreamTeamLeaderboardRead());
 				FOnlineLeaderboardReadRef ReadRef = ReadObject.ToSharedRef();
-				Leaderboards->OnLeaderboardReadCompleteDelegates.AddUObject(this, &SDTLeaderboard::OnLeaderboardReadComplete);
+
 				if (Leaderboards->ReadLeaderboardsAroundRank(10, 10, ReadRef))
 				{
 					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, FString::Printf(TEXT("ReadSuccess")));

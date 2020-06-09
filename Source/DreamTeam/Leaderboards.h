@@ -19,11 +19,11 @@ public:
 	FDreamTeamLeaderboardRead()
 	{
 		// Default properties
-		LeaderboardName = FName(TEXT("TimeRecord"));
+		LeaderboardName = FName(TEXT("Time"));
 		SortedColumn = LEADERBOARD_STAT_TIME;
 
 		// Define default columns
-		new (ColumnMetadata) FColumnMetaData(LEADERBOARD_STAT_TIME, EOnlineKeyValuePairDataType::Float);
+		new (ColumnMetadata) FColumnMetaData(LEADERBOARD_STAT_TIME, EOnlineKeyValuePairDataType::Int32);
 		//new (ColumnMetadata) FColumnMetaData(LEADERBOARD_STAT_KILLS, EOnlineKeyValuePairDataType::Int32);
 		//new (ColumnMetadata) FColumnMetaData(LEADERBOARD_STAT_DEATHS, EOnlineKeyValuePairDataType::Int32);
 		//new (ColumnMetadata) FColumnMetaData(LEADERBOARD_STAT_MATCHESPLAYED, EOnlineKeyValuePairDataType::Int32);
@@ -40,7 +40,7 @@ public:
 	FDreamTeamLeaderboardWrite()
 	{
 		// Default properties
-		new (LeaderboardNames) FName(TEXT("TimeRecord"));
+		new (LeaderboardNames) FName(TEXT("Time"));
 		RatedStat = LEADERBOARD_STAT_TIME;
 		DisplayFormat = ELeaderboardFormat::Number;
 		SortMethod = ELeaderboardSort::Descending;

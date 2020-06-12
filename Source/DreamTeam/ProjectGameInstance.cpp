@@ -5,7 +5,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "Engine/Engine.h"
-#include "SDTLeaderboard.h"
 
 UProjectGameInstance::UProjectGameInstance()
 {
@@ -14,12 +13,12 @@ UProjectGameInstance::UProjectGameInstance()
 
 void UProjectGameInstance::ReadLeaderboard()
 {
-	DTLB.ReadLeaderboard();
+	//DTLB.ReadLeaderboard();
 }
 
 void UProjectGameInstance::WriteLeaderboard()
 {
-	DTLB.WriteLeaderboard();
+	//DTLB.WriteLeaderboard();
 }
 
 void UProjectGameInstance::LoginLeaderboard()

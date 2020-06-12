@@ -158,3 +158,5 @@ DreamTeam.VC.VC.opendb
 Binaries/Win64/UE4Editor-DreamTeam.pdb
 Binaries/Win64/UE4Editor-DreamTeam.pdb
 WindowsNoEditor/
+Binaries/Win64/
+*.pdb

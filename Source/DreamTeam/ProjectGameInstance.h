@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "SDTLeaderboard.h"
 #include "ProjectGameInstance.generated.h"
 
 /**
@@ -17,8 +16,6 @@ class DREAMTEAM_API UProjectGameInstance : public UGameInstance
 public:
 
 	UProjectGameInstance();
-
-	SDTLeaderboard DTLB;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int SelectCharacter = 0;

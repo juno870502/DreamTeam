@@ -9,6 +9,8 @@
 #include "Engine/Engine.h"
 #include "Kismet/GameplayStatics.h"
 #include "Misc/DateTime.h"
+#include "OnlineSubsystemTypes.h"
+#include "Kismet/KismetInternationalizationLibrary.h"
 
 void AMyPlayerController::OnLeaderboardReadComplete(bool bWasSuccessful)
 {
@@ -24,17 +26,16 @@ void AMyPlayerController::OnLeaderboardReadComplete(bool bWasSuccessful)
 			{
 				FOnlineStatsRow& RowData = ReadObject->Rows[i];
 				int32 Time;
-				FLeaderboardRowData BPData;
 				if (const FVariantData* TimeData = RowData.Columns.Find(LEADERBOARD_STAT_TIME))
 				{
+					FLeaderboardRowData BPData;
 					TimeData->GetValue(Time);
 					BPData.Rank = RowData.Rank;
 					BPData.Nickname = RowData.NickName;
 					BPData.Time = Time;
 
 					BPDataArray.Add(BPData);
-
-					//GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, FString::Printf(TEXT("Time : %d"), Time));
+					GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, FString::Printf(TEXT("UserID : %d"), RowData.PlayerId->GetBytes()));
 				}
 			}
 			UpdateWidget();
@@ -74,7 +75,7 @@ void AMyPlayerController::WriteLeaderboard()
 					TimeInteger = UGameplayStatics::GetTimeSeconds(GetWorld()) * 100;
 					//WriteLeaderboardVariable.FindStatByName(TEXT("Time"));
 					WriteLeaderboardVariable.SetIntStat(TEXT("Time"), TimeInteger);
-
+					
 					Leaderboards->WriteLeaderboards(WriteLeaderboardVariable.LeaderboardNames[0], (*UserIdPtr), WriteLeaderboardVariable);
 					Leaderboards->FlushLeaderboards(WriteLeaderboardVariable.LeaderboardNames[0]);
 
@@ -137,7 +138,7 @@ void AMyPlayerController::OnLeaderboardReadCompleteToWrite(bool bWasSuccessful)
 				CompareData.Rank = RowData.Rank;
 				CompareData.Nickname = RowData.NickName;
 				CompareData.Time = Time;
-
+				
 				//GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Black, FString::Printf(TEXT("TimeToWrite : %d"), Time));
 			}
 			
@@ -157,7 +158,7 @@ void AMyPlayerController::OnLeaderboardReadCompleteToWrite(bool bWasSuccessful)
 				{
 					if (CompareData.Time > TimeToWrite || CompareData.Time == 0)
 					{
-						WriteLeaderboardVariable.SetIntStat(TEXT("Time"), TimeToWrite);
+						WriteLeaderboardVariable.SetIntStat(TEXT("Time"), TimeToWrite);						
 
 						Leaderboards->WriteLeaderboards(WriteLeaderboardVariable.LeaderboardNames[0], (*UserIdPtr), WriteLeaderboardVariable);
 						Leaderboards->FlushLeaderboards(WriteLeaderboardVariable.LeaderboardNames[0]);
@@ -191,6 +192,8 @@ void AMyPlayerController::ReadLeaderboard()
 
 				ReadObject = MakeShareable(new FDreamTeamLeaderboardRead());
 				FOnlineLeaderboardReadRef ReadRef = ReadObject.ToSharedRef();
+
+				Leaderboards->FreeStats(ReadRef.Get());
 
 				Leaderboards->ReadLeaderboardsAroundRank(10, 10, ReadRef);
 			}

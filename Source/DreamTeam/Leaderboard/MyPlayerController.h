@@ -26,6 +26,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 Time = 0;
+
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	//FString Country = "";
 };
 
 UCLASS()
